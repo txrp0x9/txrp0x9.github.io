@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Algorithm 1 - Maximal Cliques</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Worst-case Time Complexity for Maximal Cliques</h1>
+
+    <p><strong>Objective:</strong> A depth-first search algorithm for generating all maximal cliques of an undirected graph, in which pruning methods
+        are employed as in the Bron–Kerbosch algorithm. All the maximal cliques generated are output in a tree-like form. Subsequently,
+        we prove that its worst-case time complexity is O(3n/3) for an n-vertex graph. This is optimal as a function of n, since there exist
+        up to 3n/3 maximal cliques in an n-vertex graph. The algorithm is also demonstrated to run very fast in practice by computational
+        experiments.This algorithm is a refined variant of the Bron-Kerbosch recursive method, enhanced with a pivot selection strategy. In this method, three disjoint sets of vertices are maintained: - P: the set of candidate vertices for inclusion in the clique, - R: the clique constructed so far, and - X: the set of vertices that have already been processed (excluded from the current clique).
+
+        The recursion terminates when both P and X are empty, at which point R represents a maximal clique. Otherwise, the algorithm selects a pivot vertex u from P ∪ X such that u has the largest number of neighbors in P. It then iterates over each vertex v in P that is not adjacent to u, and recursively calls the algorithm with updated sets: - P is replaced by P ∩ neighbours(v), - R is updated to R ∪ {v}, and - X becomes X ∩ neighbours(v).
+    
+        After the recursive call returns, v is removed from P and added to X. An early pruning strategy is also used: if the size of R plus the number of vertices in P is less than or equal to the size of the largest clique found so far, the recursion stops early, saving computational time..</p>
+    
+    <p><a href="https://drive.google.com/file/d/1LGTgc1oIdzFKmrYmuIYGN8RWU6dRZ_N1/view?usp=classroom_web&authuser=0" target="_blank">Read the Paper</a></p>
+    <p><a href="https://github.com/txrp0x9/txrp0x9.github.io/blob/master/tomita.cpp" target="_blank">Code Implementation</a></p>
+
+    <h2>Results on Different Datasets</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Dataset</th>
+            <th>No. of Maximal Cliques</th>
+            <th>Largest Maximal Clique</th>
+            <th>Runtime</th>
+        </tr>
+        <tr>
+            <td>Enron</td>
+            <td>226859</td>
+            <td>20</td>
+            <td>377.1s</td>
+        </tr>
+        <tr>
+            <td>Skitter</td>
+            <td>37322355</td>
+            <td>67</td>
+            <td>8337.37s</td>
+        </tr>
+        <tr>
+            <td>Wiki-Vote</td>
+            <td>459002</td>
+            <td>17</td>
+            <td>34.30s</td>
+        </tr>
+    </table>
+
+    <!-- <h2>Visual Representations</h2>
+    <p><a href="img/execution-time.png" target="_blank">Execution Time on Each Dataset</a></p> -->
+   
+</body>
+</html>

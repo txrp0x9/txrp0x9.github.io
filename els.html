@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Algorithm 1 - Maximal Cliques</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Listing All Maximal Cliques in Sparse Graphs</h1>
+
+    <p><strong>Objective:</strong> The ELS is a variation of Bron-Kerbosch Algorithm. The ELS paper described time complexity in terms of degeneracy (d, which is the smallest number such that every sub-graph contains a node of degree atmost d), the complexity being O(dn(3^(d/3))). Bron-Kerbosch algorithm is a recursive algorithm which, as arguments take three disjoint sets of vertices, P (the set of vertices which will be considered for inclusion in the clique), R (the clique found so far), and X (the set of vertices which are excluded in maximal clique).
+        The Bron-Kerbosch Algorithm recursion terminates when both P and X are empty, printing the maximal clique R. Else, the algorithm iterates over all the vertices v in P, recursively calling Bron-Kerbosch on arguments: P as P ∩ neighbours(v), R as R ∪{v} and X as X ∩ neighbours(v). When the recursive call returns, we move v from P to X.
+        The ELS modifies the Bron-Kerbosch Algorithm, in two basic ways.
+        The first modification is to begin with a degeneracy ordering of vertices, which can be obtained by a greedy algorithm of selecting and then removing vertex with minimum degree till the graph is empty. Then, we iterate over all the vertices in the degeneracy ordering.
+        The second modification is that for each vertex vi, we take the set P as all the neighbours of vi, which are after vi in degeneracy ordering, and X as all the neighbours of vi, which are before vi in degeneracy ordering, and R as {vi}. Here, instead of calling Bron-Kerbosch basic algorithm, we call a variation called Bron-Kerbosch Pivot, which has same arguments as Bron-Kerbosch with R = {vi}, but when P ∪ X is not empty, we choose a pivot in the same way as Tomita chose, that is the one with largest value of |P ∩ neighbours (u)| from P ∪ X. After this, for each vertex v in P\neighbours(u), we recursively call the Bron-Kerbosch Pivot with the arguments: P as P ∩ neighbours(v), R as R ∪{v} and X as X ∩ neighbours(v). When the recursive call returns, we move v from P to X.</p>
+    <p><a href="https://drive.google.com/file/d/1P4M58WFlZ79_J--HK9nqmCyOpBx03uRn/view?usp=classroom_web&authuser=0" target="_blank">Read the Paper</a></p>
+    <p><a href="https://github.com/txrp0x9/txrp0x9.github.io/blob/master/els.cpp" target="_blank">Code Implementation</a></p>
+
+    <h2>Results on Different Datasets</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Dataset</th>
+            <th>No. of Maximal Cliques</th>
+            <th>Largest Maximal Clique</th>
+            <th>Runtime</th>
+        </tr>
+        <tr>
+            <td>Enron</td>
+            <td>226859</td>
+            <td>20</td>
+            <td>9.60033 seconds</td>
+        </tr>
+        <tr>
+            <td>Skitter</td>
+            <td>37322355</td>
+            <td>67</td>
+            <td>6210.09 seconds</td>
+        </tr>
+        <tr>
+            <td>Wiki-Vote</td>
+            <td>459002</td>
+            <td>17</td>
+            <td>13.1521 seconds</td>
+        </tr>
+    </table>
+
+    <!-- <h2>Visual Representations</h2>
+    <p><a href="img/execution-time.png" target="_blank">Execution Time on Each Dataset</a></p> -->
+    
+</body>
+</html>
